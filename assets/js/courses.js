@@ -1,5 +1,9 @@
 $(document).ready(function(){
-	alert("hi");
+	//alert("hi");
+
+	$('#cancel_form').click(function(){
+		$('#add_course').reset();
+	});
 
 	$('#add_course').submit(function(){
 		var this_form = $(this);
