@@ -10,6 +10,10 @@
 </head>
 <body>
 	<div id="wrapper" class="container">
+<?#php 	foreach ($course->error->all as $e)
+//		{	?>
+    		<!-- <p><?#= $e ?></p> -->
+<?#php 	}	?>
 		<form id="add_course" class="form-horizontal span5" action="courses/process_course_form" method="post">
 			<div class="control-group">
 				<div class="controls">
@@ -23,9 +27,9 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="description">Description:</label>
+				<label class="control-label" for="course_description">Description:</label>
 				<div class="controls">
-					<textarea class="span3" rows="5" name="description" id="description" placeholder="Course Description"></textarea>
+					<textarea class="span3" rows="5" name="course_description" id="course_description" placeholder="Course Description"></textarea>
 				</div>
 			</div>
 			<div class="control-group">
@@ -37,6 +41,11 @@
 		</form> <!-- End of new course form -->
 		<div class="clearfix"></div>
 		<div id="course_list">
+			<!-- Will make into accordion box: for now, lets make sure we can get to all the data we need! -->
+<?php 		foreach($courses as $course)
+			{	?>
+				<p><?= $course->title ?>: <?= $course->course_description ?></p>
+<?php 		}	?>
 		</div>
 	</div>
 </body>

@@ -14,16 +14,21 @@ class Courses extends CI_Controller {
     {
     	$courses = new Course();
     	$data['courses'] = $courses->get();
-
-    	// echo "<h2>index view test</h2>";
-    	// foreach($data['courses'] as $course)
-    	// {
-    	// 	echo "<p>{$course->title}: {$course->course_description}</p>";
-    	// }
-
     	$this->load->view('courses_index', $data);
     }
 
+    function process_course_form()
+    {
+    	//now that we're using Datamapper, we use the validations in the model
+    	//http://datamapper.wanwizard.eu/pages/validation.html#
+
+    	//Tighten this up into fewer lines later:
+    	$course = new Course();
+    	$course->title = $this->input->post('title');
+    	$course->course_description = $this->input->post('course_description');
+    	$course->created_at = date("Y-m-d H:i:s");
+    	$course->save();
+    }
 }
 
 //end of file
