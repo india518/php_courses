@@ -2,3 +2,9 @@ legend.span3 {
 	margin: 0px;
 	padding: 0px;
 }
+
+.course_title {
+	/*for formatting purposes*/
+	border: 1px solid silver;
+	border-radius: 5px;
+}

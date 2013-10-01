@@ -49,9 +49,14 @@
 <?php 		foreach($courses as $course)
 			{	?>
 				<div class="course_title">
-					<h4><?= $course->title ?></h4>
-					<!-- TODO: insert 'edit' form here -->
-					<!-- TODO: insert 'delete' form here -->
+					<h4 class="pull-left"><?= $course->title ?></h4>
+					<div class="title_bar_forms pull-right">
+						<!-- TODO: insert 'edit' form here -->
+						<a class="btn btn-primary">edit course</a>
+						<!-- TODO: insert 'delete' form here -->
+						<a class="btn btn-danger">delete course</a>
+					</div>
+					<div class="clearfix"></div>
 				</div>
 				<p id="course_id_<?= $course->id ?>"><?= $course->course_description ?></p>
 <?php 		}	?>
