@@ -14,6 +14,12 @@ $(document).ready(function(){
 		// We can't use jQuery for .reset, need to use javascript:
 		document.getElementById("add_course").reset();
 
+		//get rid of any error messages that may be showing:
+		$('#error_messages').html("").removeClass('alert alert-error');
+
+
+
+
 		return false;
 	});
 

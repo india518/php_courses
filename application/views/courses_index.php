@@ -10,10 +10,15 @@
 </head>
 <body>
 	<div id="wrapper" class="container">
-<?#php 	foreach ($course->error->all as $e)
-//		{	?>
-    		<!-- <p><?#= $e ?></p> -->
-<?#php 	}	?>
+<?php 	if($this->session->flashdata('error_messages') != NULL)
+		{	?>
+		<div id="error_messages" class="alert alert-block alert-error">
+<?php 		foreach($this->session->flashdata('error_messages') as $error)
+			{	?>
+			<p><?= $error ?></p>
+<?php		}	?>
+		</div><!-- closes the alert block -->
+<?php	}	?>
 		<form id="add_course" class="form-horizontal span5" action="courses/process_course_form" method="post">
 			<div class="control-group">
 				<div class="controls">

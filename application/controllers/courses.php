@@ -27,9 +27,17 @@ class Courses extends CI_Controller {
     	$course->title = $this->input->post('title');
     	$course->course_description = $this->input->post('course_description');
     	$course->created_at = date("Y-m-d H:i:s");
-    	$course->save();
+    	$save_success = $course->save();
 
-    	redirect(base_url());
+    	if ($save_success) //can we do: if ($course->save())
+    	{
+    		redirect(base_url());
+    	}
+    	else
+    	{
+    		$this->session->set_flashdata('error_messages', $course->error->all);
+    		redirect(base_url());
+    	}
     }
 }
 
