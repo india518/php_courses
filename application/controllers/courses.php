@@ -13,7 +13,7 @@ class Courses extends CI_Controller {
     function index()
     {
     	$courses = new Course();
-    	$data['courses'] = $courses->get();
+    	$data['courses'] = $courses->get(); //seems to be ordered by id, by default
     	$this->load->view('courses_index', $data);
     }
 
@@ -28,6 +28,8 @@ class Courses extends CI_Controller {
     	$course->course_description = $this->input->post('course_description');
     	$course->created_at = date("Y-m-d H:i:s");
     	$course->save();
+
+    	redirect(base_url());
     }
 }
 
