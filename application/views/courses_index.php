@@ -40,11 +40,15 @@
 			</div>
 		</form> <!-- End of new course form -->
 		<div class="clearfix"></div>
-		<div id="course_list">
-			<!-- Will make into accordion box: for now, lets make sure we can get to all the data we need! -->
+		<div id="course_accordion">
 <?php 		foreach($courses as $course)
 			{	?>
-				<p><?= $course->title ?>: <?= $course->course_description ?></p>
+				<div class="course_title">
+					<h4><?= $course->title ?></h4>
+					<!-- TODO: insert 'edit' form here -->
+					<!-- TODO: insert 'delete' form here -->
+				</div>
+				<p id="course_id_<?= $course->id ?>"><?= $course->course_description ?></p>
 <?php 		}	?>
 		</div>
 	</div>
