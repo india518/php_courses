@@ -13,23 +13,25 @@ class Courses extends CI_Controller {
 
     function index()
     {
+        //Review with John:
+        //It seems odd to make a Course object that will end up being an array
+        //of Course objects. Seems to work, but is it correct?
     	$courses = new Course();
-    	$data['courses'] = $courses->get(); //seems to be ordered by id, by default
-        $data['course_edit'] = FALSE; //we are not editing; see edit_course_form()
+    	$data['courses'] = $courses->get(); //ordered by id, by default?
+        $data['course_edit'] = FALSE; //because we are not editing; see edit_course_form()
     	$this->load->view('courses_index', $data);
     }
 
     function new_course_form()
     {
-    	//now that we're using Datamapper, we use the validations in the model
-    	//http://datamapper.wanwizard.eu/pages/validation.html#
+    	//now that we're using Datamapper, we have the validations in the model,
+        //not in the controller
+    	//source: http://datamapper.wanwizard.eu/pages/validation.html#
 
-    	//Tighten this up into fewer lines later:
     	$course = new Course();
     	$course->title = $this->input->post('title');
     	$course->course_description = $this->input->post('course_description');
     	$course->created_at = date("Y-m-d H:i:s");
-    	//$save_success = $course->save(); //unneccessary step
 
     	if ($course->save()) //hmm, note that this is like rails!
     	{
@@ -40,6 +42,7 @@ class Courses extends CI_Controller {
     		$this->session->set_flashdata('error_messages', $course->error->all);
     		redirect(base_url());
     	}
+        // THOUGHTS ON AJAX, for the next step:
     	//note that once we implement AJAX, we'll need code (perhaps a helper function?)
     	// to construct the html for another accordion tab:
 /* 		$html = <<<_HTML
@@ -62,26 +65,26 @@ _HTML
 
     function edit_course()
     {
-        //get the object from the database
+        //retrieve the object from the database
         $course = new Course($this->input->post('course_id'));
 
-        //load page with course info for form
+        //load page, with course info so that the form is already filled in.
         //Need to DRY some of this up., since it is repeated from index()... how?
         $courses = new Course();
         $data['courses'] = $courses->get();
         // here is our info to populate the form, since we are editting a course
         $data['course_edit'] = $course;
+
         $this->load->view('courses_index', $data);
     }
 
     function update_course_form()
     {
-        //get the object from the database
         $course = new Course($this->input->post('course_id'));
         $course->title = $this->input->post('title');
         $course->course_description = $this->input->post('course_description');
         $course->updated_at = date("Y-m-d H:i:s");
-        if ($course->save()) //hmm, note that this is like rails!
+        if ($course->save())
         {
             redirect(base_url());   //will change this for AJAX
         }
@@ -94,10 +97,7 @@ _HTML
 
     function delete_course()
     {
-        //get the object from the database
         $course = new Course($this->input->post('course_id'));
-        
-        //delete object
         $course->delete();
         redirect(base_url());   //will change this for AJAX
     }
