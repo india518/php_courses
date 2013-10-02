@@ -18,16 +18,10 @@ class Course extends Datamapper {
 
     function __construct($id = NULL)
     {
+        //including the (optional) $id parameter lets us load a model by ID
+        // when it is created. (See courses/edit_course() and courses/update_course_form()
+        // for an example of this in action
         parent::__construct($id);
-    }
-
-    function get_course($id)
-    {
-        //create a temporary course object
-        $course = new Course();
-
-        // Get the record for this course
-        $course->get_by_id($id);
     }
 
 }

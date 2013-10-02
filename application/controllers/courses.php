@@ -5,6 +5,7 @@ class Courses extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
+
 		//This cannot be used with Ajax, but if we disable Ajax it will
 		// give us information about speeding up our queries:
 		$this->output->enable_profiler(TRUE);
@@ -62,11 +63,10 @@ _HTML
     function edit_course()
     {
         //get the object from the database
-        $course = new Course();
-        $course->where('id', $this->input->post('course_id'))->get();
+        $course = new Course($this->input->post('course_id'));
 
         //load page with course info for form
-        //Need to DRY some of this up... how?
+        //Need to DRY some of this up., since it is repeated from index()... how?
         $courses = new Course();
         $data['courses'] = $courses->get();
         // here is our info to populate the form, since we are editting a course
@@ -77,8 +77,7 @@ _HTML
     function update_course_form()
     {
         //get the object from the database
-        $course = new Course();
-        $course->where('id', $this->input->post('course_id'))->get();
+        $course = new Course($this->input->post('course_id'));
         $course->title = $this->input->post('title');
         $course->course_description = $this->input->post('course_description');
         $course->updated_at = date("Y-m-d H:i:s");
@@ -96,8 +95,7 @@ _HTML
     function delete_course()
     {
         //get the object from the database
-        $course = new Course();
-        $course->where('id', $this->input->post('course_id'))->get();
+        $course = new Course($this->input->post('course_id'));
         
         //delete object
         $course->delete();
