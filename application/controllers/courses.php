@@ -32,7 +32,7 @@ class Courses extends CI_Controller {
 
     	if ($course->save()) //hmm, note that this is like rails!
     	{
-    		redirect(base_url());
+    		redirect(base_url());   //will change this for AJAX
     	}
     	else
     	{
@@ -68,33 +68,26 @@ _HTML
         //load page with course info for form
         //Need to DRY some of this up... how?
         $courses = new Course();
-        $data['courses'] = $courses->get(); //seems to be ordered by id, by default
-        // here is our info for the form, since we are editting a course
+        $data['courses'] = $courses->get();
+        // here is our info to populate the form, since we are editting a course
         $data['course_edit'] = $course;
         $this->load->view('courses_index', $data);
     }
 
     function update_course_form()
     {
-        //while getting this to work, lets create some helpful variables we can delete later:
-        $id = $this->input->post('course_id');
-        $title = $this->input->post('title');
-        $description = $this->input->post('course_description');
-
         //get the object from the database
         $course = new Course();
-        $course->where('id', $id)->get();
-        $course->title = $title;
-        $course->course_description = $description;
+        $course->where('id', $this->input->post('course_id'))->get();
+        $course->title = $this->input->post('title');
+        $course->course_description = $this->input->post('course_description');
         $course->updated_at = date("Y-m-d H:i:s");
         if ($course->save()) //hmm, note that this is like rails!
         {
-            redirect(base_url());
+            redirect(base_url());   //will change this for AJAX
         }
         else
         {
-            // var_dump($course->error->all);
-            // die();
             $this->session->set_flashdata('error_messages', $course->error->all);
             redirect(base_url());
         }
