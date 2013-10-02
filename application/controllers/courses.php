@@ -86,14 +86,15 @@ _HTML
         $course->where('id', $id)->get();
         $course->title = $title;
         $course->course_description = $description;
+        $course->updated_at = date("Y-m-d H:i:s");
         if ($course->save()) //hmm, note that this is like rails!
         {
             redirect(base_url());
         }
         else
         {
-            var_dump($course->error->all);
-            die();
+            // var_dump($course->error->all);
+            // die();
             $this->session->set_flashdata('error_messages', $course->error->all);
             redirect(base_url());
         }
