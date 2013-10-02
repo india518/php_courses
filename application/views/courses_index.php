@@ -3,10 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Course List</title>
-	<script type="text/javascript" src="<?= base_url() ?>/assets/js/jquery.1_10_2.js"></script>
-	<script type="text/javascript" src="<?= base_url() ?>/assets/js/courses.js"></script>
-	<link href="<?= base_url() ?>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="<?= base_url() ?>/assets/css/mycss.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="<?= base_url() ?>assets/js/jquery.1_10_2.js"></script>
+	<script type="text/javascript" src="<?= base_url() ?>assets/js/courses.js"></script>
+	<link href="<?= base_url() ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="<?= base_url() ?>assets/css/mycss.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="wrapper" class="container">
@@ -98,11 +98,11 @@
 				<div class="course_title">
 					<h4><?= $course->title ?></h4>
 					<div class="title_bar">
-						<form class="delete_course" action="courses/delete_course" method="post">
+						<form class="delete_course" action="<?= base_url() ?>courses/delete_course" method="post">
 							<input type="hidden" name="course_id" value="<?= $course->id ?>" />
 							<input type="submit" class="btn btn-danger" value="Delete Course" />
 						</form>
-						<form class="edit_course" action="courses/edit_course" method="post">
+						<form class="edit_course" action="<?= base_url() ?>courses/edit_course" method="post">
 							<input type="hidden" name="course_id" value="<?= $course->id ?>" />
 							<input type="submit" class="btn btn-primary" value="Edit Course" />
 						</form>
