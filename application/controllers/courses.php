@@ -38,6 +38,24 @@ class Courses extends CI_Controller {
     		$this->session->set_flashdata('error_messages', $course->error->all);
     		redirect(base_url());
     	}
+    	//note that once we implement AJAX, we'll need code (perhaps a helper function?)
+    	// to construct the html for another accordion tab:
+/* 		$html = <<<_HTML
+			<div class="course_title">
+				<h4 class="pull-left"><?#= $course->title ?></h4>
+				<div class="title_bar_forms pull-right">
+					<!-- insert 'edit' form here -->
+					<a class="btn btn-primary">edit course</a>
+					<!-- insert 'delete' form here -->
+					<a class="btn btn-danger">delete course</a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<p id="course_id_<?#= $course->id ?>"><?= $course->course_description ?></p>
+_HTML
+		$data = array();
+		$data['html'] = $html;
+		echo json_encode($data);*/
     }
 }
 
