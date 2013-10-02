@@ -9,10 +9,10 @@ legend.span3 {
 }
 
 .course_title h4 {
-	display: inline-block;
+	/*display: inline-block;*/
+	float: left;
 	margin-top: 5px;
 	margin-bottom: 5px;
-	margin-right: auto;
 }
 
 .title_bar {

@@ -51,14 +51,12 @@
 				<div class="course_title">
 					<h4><?= $course->title ?></h4>
 					<div class="title_bar">
-						<!-- TODO: insert 'delete' form here -->
 						<form class="delete_course" action="courses/delete_course" method="post">
-							<input type="hidden" name="delete" value="<?= $course->id ?>" />
+							<input type="hidden" name="course_id" value="<?= $course->id ?>" />
 							<input type="submit" class="btn btn-danger" value="Delete Course" />
 						</form>
-						<!-- TODO: insert 'edit' form here -->
 						<form class="edit_course" action="courses/edit_course" method="post">
-							<input type="hidden" name="edit" value="<?= $course->id ?>" />
+							<input type="hidden" name="course_id" value="<?= $course->id ?>" />
 							<input type="submit" class="btn btn-primary" value="Edit Course" />
 						</form>
 					</div>

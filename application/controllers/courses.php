@@ -27,9 +27,9 @@ class Courses extends CI_Controller {
     	$course->title = $this->input->post('title');
     	$course->course_description = $this->input->post('course_description');
     	$course->created_at = date("Y-m-d H:i:s");
-    	$save_success = $course->save();
+    	//$save_success = $course->save(); //unneccessary step
 
-    	if ($save_success) //can we do: if ($course->save())
+    	if ($course->save()) //hmm, note that this is like rails!
     	{
     		redirect(base_url());
     	}
@@ -56,6 +56,24 @@ _HTML
 		$data = array();
 		$data['html'] = $html;
 		echo json_encode($data);*/
+    }
+
+    function edit_course()
+    {
+        $messages = ['Edit form submitted.', 'Edit functionality in progress.'];
+        $this->session->set_flashdata('error_messages', $messages);
+        redirect(base_url());
+    }
+
+    function delete_course()
+    {
+        //get the object from the database
+        $course = new Course();
+        $course->where('id', $this->input->post('course_id'))->get();
+        
+        //delete object
+        $course->delete();
+        redirect(base_url());
     }
 }
 
