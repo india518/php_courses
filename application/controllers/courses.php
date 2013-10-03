@@ -71,13 +71,22 @@ _HTML;
     function edit_course()
     {
         //retrieve the object from the database
-        $data['course_to_edit'] = new Course($this->input->post('course_id'));
-        
+        //$data['course_to_edit'] = new Course($this->input->post('course_id'));
+        $course = new Course($this->input->post('course_id'));
+        //Without Ajax:
+        /*
         $courses = new Course();
         $data['courses'] = $courses->get();
-        
         $this->load->view('courses_index', $data);
         $courses->clear();
+        */
+
+        //With Ajax:
+        $data['id'] = $course->id;
+        $data['title'] = $course->title;
+        $data['course_description'] = $course->course_description;
+        echo json_encode($data);
+
     }
 
     function update_course_form()
