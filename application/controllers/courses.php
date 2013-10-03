@@ -8,7 +8,7 @@ class Courses extends CI_Controller {
 
 		//This cannot be used with Ajax, but if we disable Ajax it will
 		// give us information about speeding up our queries:
-		$this->output->enable_profiler(TRUE);
+		//$this->output->enable_profiler(TRUE);
     }
 
     function index()
@@ -91,7 +91,8 @@ _HTML
     {
         $course = new Course($this->input->post('course_id'));
         $course->delete();
-        redirect(base_url());   //will change this for AJAX
+        //redirect(base_url());   //will change this for AJAX
+        echo json_encode("");
     }
 }
 

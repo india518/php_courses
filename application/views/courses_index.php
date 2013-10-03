@@ -95,7 +95,7 @@
 		<div id="course_accordion">
 <?php 		foreach($courses as $course)
 			{	?>
-				<div class="course_title_bar">
+				<div id="title_course_<?= $course->id ?>" class="course_title_bar">
 					<h4><?= $course->title ?></h4>
 					<div class="course_actions">
 						<form class="delete_course" action="<?= base_url() ?>courses/delete_course" method="post">
@@ -109,7 +109,7 @@
 					</div>
 					<div class="clearfix"></div>
 				</div>
-				<p id="course_id_<?= $course->id ?>"><?= $course->course_description ?></p>
+				<p id="course_description_<?= $course->id ?>"><?= $course->course_description ?></p>
 <?php 		}	?>
 		</div>
 	</div>
