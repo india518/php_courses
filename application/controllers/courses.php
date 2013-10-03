@@ -13,13 +13,13 @@ class Courses extends CI_Controller {
 
     function index()
     {
-        //Review with John:
-        //It seems odd to make a Course object that will end up being an array
-        //of Course objects. Seems to work, but is it correct?
     	$courses = new Course();
-    	$data['courses'] = $courses->get(); //ordered by id, by default?
-        $data['course_edit'] = FALSE; //because we are not editing; see edit_course_form()
-    	$this->load->view('courses_index', $data);
+    	$data['courses'] = $courses->get();
+        
+        $data['course_to_edit'] = FALSE; //because we are not editing; see edit_course_form()
+    	
+        $this->load->view('courses_index', $data);
+        $courses->clear();
     }
 
     function new_course_form()
@@ -29,11 +29,8 @@ class Courses extends CI_Controller {
     	//source: http://datamapper.wanwizard.eu/pages/validation.html#
 
     	$course = new Course();
-    	$course->title = $this->input->post('title');
-    	$course->course_description = $this->input->post('course_description');
-    	$course->created_at = date("Y-m-d H:i:s");
-
-    	if ($course->save()) //hmm, note that this is like rails!
+    	
+    	if ($course->p_save($this->input->post()))
     	{
     		redirect(base_url());   //will change this for AJAX
     	}
@@ -66,25 +63,20 @@ _HTML
     function edit_course()
     {
         //retrieve the object from the database
-        $course = new Course($this->input->post('course_id'));
-
-        //load page, with course info so that the form is already filled in.
-        //Need to DRY some of this up., since it is repeated from index()... how?
+        $data['course_to_edit'] = new Course($this->input->post('course_id'));
+        
         $courses = new Course();
-        $data['courses'] = $courses->get();
-        // here is our info to populate the form, since we are editting a course
-        $data['course_edit'] = $course;
-
+        $data['courses'] = $courses->get(); //ordered by id, by default?
+        
         $this->load->view('courses_index', $data);
+        $courses->clear();
     }
 
     function update_course_form()
     {
         $course = new Course($this->input->post('course_id'));
-        $course->title = $this->input->post('title');
-        $course->course_description = $this->input->post('course_description');
-        $course->updated_at = date("Y-m-d H:i:s");
-        if ($course->save())
+        
+        if ($course->p_update($this->input->post()))
         {
             redirect(base_url());   //will change this for AJAX
         }

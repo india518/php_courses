@@ -20,7 +20,7 @@
 		</div><!-- closes the alert block -->
 <?php	}	?>
 		<form id="add_or_edit_course" class="form-horizontal span5" 
-<?php 		if ($course_edit)
+<?php 		if ($course_to_edit)
 			{	?>
 				action="update_course_form" 
 <?php		}
@@ -31,7 +31,7 @@
 				method="post">
 			<div class="control-group">
 				<div class="controls">
-<?php 			if ($course_edit)
+<?php 			if ($course_to_edit)
 				{	?>
 					<legend class="span3">Edit Course</legend>
 <?php 			}
@@ -45,9 +45,9 @@
 				<label class="control-label" for="title">Title:</label>
 				<div class="controls">
 					<input class="span3" type="text" name="title" id="title" 
-<?php 				if ($course_edit)
+<?php 				if ($course_to_edit)
 					{	?>
-						value="<?= $course_edit->title ?>"
+						value="<?= $course_to_edit->title ?>"
 <?php				}
 					else
 					{	?>
@@ -60,9 +60,9 @@
 				<label class="control-label" for="course_description">Description:</label>
 				<div class="controls">
 					<textarea class="span3" rows="5" name="course_description" id="course_description" 
-<?php 				if ($course_edit)
+<?php 				if ($course_to_edit)
 					{	?>
-						><?= $course_edit->course_description ?></textarea>
+						><?= $course_to_edit->course_description ?></textarea>
 <?php				}
 					else
 					{	?>
@@ -74,12 +74,12 @@
 				<div class="controls">
 					<a id="cancel_form" href="<?= base_url() ?>" class="btn btn-danger">Cancel</a>
 					<!-- include a hidden field for id, if we are editing: -->
-<?php 				if ($course_edit)
+<?php 				if ($course_to_edit)
 					{	?>
-						<input type="hidden" name="course_id" value="<?= $course_edit->id ?>" />
+						<input type="hidden" name="course_id" value="<?= $course_to_edit->id ?>" />
 <?php				}	?>
 					<button type="submit" class="btn btn-primary pull-right">
-<?php 				if ($course_edit)
+<?php 				if ($course_to_edit)
 					{	?>
 						Update Course
 <?php				}
