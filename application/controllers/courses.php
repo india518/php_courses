@@ -32,32 +32,40 @@ class Courses extends CI_Controller {
     	
     	if ($course->p_save($this->input->post()))
     	{
-    		redirect(base_url());   //will change this for AJAX
+            // if ($course->exists())
+            // {
+            //     echo $course->id;
+            //     die;
+            // }
+    		//redirect(base_url());
+            
+            $html = <<<_HTML
+            <div id="title_course_{$course->id}" class="course_title_bar">
+                <h4>{$course->title}</h4>
+                <div class="course_actions">
+                    <form class="delete_course" action="{base_url()}courses/delete_course" method="post">
+                        <input type="hidden" name="course_id" value="{$course->id}" />
+                        <input type="submit" class="btn btn-danger" value="Delete Course" />
+                    </form>
+                    <form class="edit_course" action="{base_url()}courses/edit_course" method="post">
+                        <input type="hidden" name="course_id" value="{$course->id}" />
+                        <input type="submit" class="btn btn-primary" value="Edit Course" />
+                    </form>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <p id="course_id_{$course->id}">{$course->course_description}</p>
+_HTML;
+            $data = array();
+            $data['html'] = $html;
+            $data['action'] = 'add';
+            echo json_encode($data);
     	}
     	else
     	{
     		$this->session->set_flashdata('error_messages', $course->error->all);
     		redirect(base_url());
     	}
-        // THOUGHTS ON AJAX, for the next step:
-    	//note that once we implement AJAX, we'll need code (perhaps a helper function?)
-    	// to construct the html for another accordion tab:
-/* 		$html = <<<_HTML
-			<div class="course_title">
-				<h4 class="pull-left"><?#= $course->title ?></h4>
-				<div class="title_bar_forms pull-right">
-					<!-- insert 'edit' form here -->
-					<a class="btn btn-primary">edit course</a>
-					<!-- insert 'delete' form here -->
-					<a class="btn btn-danger">delete course</a>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-			<p id="course_id_<?#= $course->id ?>"><?= $course->course_description ?></p>
-_HTML
-		$data = array();
-		$data['html'] = $html;
-		echo json_encode($data);*/
     }
 
     function edit_course()
