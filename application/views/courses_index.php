@@ -78,16 +78,16 @@
 					{	?>
 						<input type="hidden" name="course_id" value="<?= $course_to_edit->id ?>" />
 <?php				}	?>
-					<button type="submit" class="btn btn-primary pull-right">
+					<button type="submit" class="btn btn-primary pull-right" 
 <?php 				if ($course_to_edit)
 					{	?>
-						Update Course
+						value="Update Course"
 <?php				}
 					else
 					{	?>
-						Add Course
+						value="Add Course"
 <?php				}	?>
-					</button>
+					>Add Course</button>
 				</div>
 			</div>
 		</form> <!-- End of new course form -->
