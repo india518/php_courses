@@ -7,7 +7,7 @@ $(document).ready(function(){
 	$(document).on('click', '.course_title_bar', function(){
 		var title_bar = $(this); // $(this) is the course_title_bar div!
 
-		// close any opaen tabs before toggling $(this) tab:
+		// close any open tabs before toggling $(this) tab:
 		title_bar.siblings('.course_title_bar').next().slideUp();
 
 		// open the tab we clicked:
@@ -31,7 +31,7 @@ $(document).ready(function(){
 	$('.delete_course').submit(function(){
 		var this_form = $(this);
 		var course_id = this_form.children('input[type="hidden"]').val();
-		//alert(course_id);
+
 		$.post(
 			this_form.attr("action"),
 			this_form.serialize(),
@@ -52,16 +52,15 @@ $(document).ready(function(){
 			this_form.attr("action"),
 			this_form.serialize(),
 			function(data){
-				console.log("hello!");
+				//close accordion tabs so that added/updated one will be the only one open:
+				$('#course_accordion').find('.course_title_bar').next().hide();
 				if (data['action'] == 'add'){
-					//close accordion tabs so that appended one will be the only one open:
-					$('#course_accordion').find('.course_title_bar').next().hide();
 					// add new course
 					$("#course_accordion").append(data['html']);
 				}
-				else{
-					//$('#title_course_' + course_id).html(data['html']['title']);
-					//$('#course_description_' + course_id).html(data['html']['description']);
+				else{ //data['action'] == 'update'
+					$('#title_course_' + data['id']).html(data['html']['title']);
+					$('#course_description_' + data['id']).html(data['html']['description']);
 				}
 			},
 			"json"

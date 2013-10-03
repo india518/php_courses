@@ -86,7 +86,31 @@ _HTML;
         
         if ($course->p_update($this->input->post()))
         {
-            redirect(base_url());   //will change this for AJAX
+            //redirect(base_url());   //will change this for AJAX
+            $title = <<<_HTML
+            <div id="title_course_{$course->id}" class="course_title_bar">
+                <h4>{$course->title}</h4>
+                <div class="course_actions">
+                    <form class="delete_course" action="{base_url()}courses/delete_course" method="post">
+                        <input type="hidden" name="course_id" value="{$course->id}" />
+                        <input type="submit" class="btn btn-danger" value="Delete Course" />
+                    </form>
+                    <form class="edit_course" action="{base_url()}courses/edit_course" method="post">
+                        <input type="hidden" name="course_id" value="{$course->id}" />
+                        <input type="submit" class="btn btn-primary" value="Edit Course" />
+                    </form>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+_HTML;
+            $description = "<p id='course_id_{$course->id}'>{$course->course_description}</p>";
+
+            $data = array();
+            $data['html']['title'] = $title;
+            $data['html']['description'] = $description;
+            $data['action'] = 'update';
+            $data['id'] = $course->id;
+            echo json_encode($data);
         }
         else
         {
