@@ -1,22 +1,18 @@
 $(document).ready(function(){
 
 	//accordion box is collapsed on page load:
-	$('#course_accordion').find('.course_title').next().hide();
+	$('#course_accordion').find('.course_title_bar').next().hide();
 
 	//when we click on an h4 heading in the accordion box:
-	$('#course_accordion').find('.course_title').children('h4').click(function(){
-		var title = $(this); // $(this) is the h4 element inside div!
-		var title_bar = title.parent(); //the div with class='course_title'
+	$('#course_accordion').find('.course_title_bar').click(function(){
+		var title_bar = $(this); // $(this) is the course_title_bar div!
 
-		// closes all other tabs before toggling $(this) tab
-		title_bar.siblings('.course_title').next().slideUp();
+		// close any opaen tabs before toggling $(this) tab:
+		title_bar.siblings('.course_title_bar').next().slideUp();
+
+		// open the tab we clicked:
 		title_bar.next().slideToggle();
-	}).parent().next().hide();
-	//NOTE: the '.parent().next().hide()' is saying:
-	// First, get the parent of the 'h4' that was clicked, which is a div with a
-	// class of 'course_title'.
-	// find the 'next' element(s) of that parent (div with class='course_title')
-	// hide those elements, if not hidden already
+	}).next().hide();
 
 	$('#cancel_form').click(function(){
 		//$('#add_course').reset();	//WRONG

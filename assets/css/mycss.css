@@ -3,23 +3,21 @@ legend.span3 {
 	padding: 0px;
 }
 
-.course_title {
+.course_title_bar {
 	border: 1px solid silver;
 	border-radius: 5px;
+	z-index: 1;
 }
 
-.course_title h4 {
-	/*display: inline-block;*/
+.course_title_bar h4 {
 	float: left;
 	margin-top: 5px;
 	margin-bottom: 5px;
-}
-
-.title_bar {
-	float: right;
+	z-index: 0;
 }
 
 .edit_course, .delete_course {
 	float: right;
 	margin: 0px;
+	z-index: 2;
 }

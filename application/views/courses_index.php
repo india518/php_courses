@@ -95,9 +95,9 @@
 		<div id="course_accordion">
 <?php 		foreach($courses as $course)
 			{	?>
-				<div class="course_title">
+				<div class="course_title_bar">
 					<h4><?= $course->title ?></h4>
-					<div class="title_bar">
+					<div class="course_actions">
 						<form class="delete_course" action="<?= base_url() ?>courses/delete_course" method="post">
 							<input type="hidden" name="course_id" value="<?= $course->id ?>" />
 							<input type="submit" class="btn btn-danger" value="Delete Course" />

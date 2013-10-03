@@ -66,7 +66,7 @@ _HTML
         $data['course_to_edit'] = new Course($this->input->post('course_id'));
         
         $courses = new Course();
-        $data['courses'] = $courses->get(); //ordered by id, by default?
+        $data['courses'] = $courses->get();
         
         $this->load->view('courses_index', $data);
         $courses->clear();
