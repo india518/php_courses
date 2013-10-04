@@ -44,8 +44,6 @@ class Course extends Datamapper {
 
         return $this->save();  
     }
-
-
 }
 
 //end of file

@@ -19,75 +19,30 @@
 <?php		}	?>
 		</div><!-- closes the alert block -->
 <?php	}	?>
-		<form id="add_or_edit_course" class="form-horizontal span5" 
-<?php 		if ($course_to_edit)
-			{	?>
-				action="update_course_form" 
-<?php		}
-			else
-			{	?>
-				action="courses/new_course_form" 
-<?php		}	?>
-				method="post">
+<!-- Since we're using AJAX, we will load the Add course form: we get the Edit
+ course form when an 'Edit' button is clicked -->
+		<form id="add_or_edit_course" class="form-horizontal span5" action="courses/new_course_form" method="post">
 			<div class="control-group">
 				<div class="controls">
-<?php 			if ($course_to_edit)
-				{	?>
-					<legend class="span3">Edit Course</legend>
-<?php 			}
-				else
-				{	?>
 					<legend class="span3">Add Course</legend>
-<?php			}	?>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="title">Title:</label>
 				<div class="controls">
-					<input class="span3" type="text" name="title" id="title" 
-<?php 				if ($course_to_edit)
-					{	?>
-						value="<?= $course_to_edit->title ?>"
-<?php				}
-					else
-					{	?>
-						placeholder="Course Title"
-<?php				}	?>
-						/> <!-- closing the input tag -->
+					<input class="span3" type="text" name="title" id="title" placeholder="Course Title"/>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="course_description">Description:</label>
 				<div class="controls">
-					<textarea class="span3" rows="5" name="course_description" id="course_description" 
-<?php 				if ($course_to_edit)
-					{	?>
-						><?= $course_to_edit->course_description ?></textarea>
-<?php				}
-					else
-					{	?>
-						placeholder="Course Description"></textarea>
-<?php				}	?>
+					<textarea class="span3" rows="5" name="course_description" id="course_description" placeholder="Course Description"></textarea>
 				</div>
 			</div>
 			<div class="control-group">
 				<div class="controls">
 					<a id="cancel_form" href="<?= base_url() ?>" class="btn btn-danger">Cancel</a>
-					<!-- include a hidden field for id, if we are editing: -->
-<?php 				if ($course_to_edit)
-					{	?>
-						<input type="hidden" name="course_id" value="<?= $course_to_edit->id ?>" />
-<?php				}	?>
-					<button type="submit" class="btn btn-primary pull-right" 
-<?php 				if ($course_to_edit)
-					{	?>
-						value="Update Course"
-<?php				}
-					else
-					{	?>
-						value="Add Course"
-<?php				}	?>
-					>Add Course</button>
+					<button type="submit" class="btn btn-primary pull-right" value="Add Course">Add Course</button>
 				</div>
 			</div>
 		</form> <!-- End of new course form -->
