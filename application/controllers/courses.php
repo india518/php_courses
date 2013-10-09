@@ -32,22 +32,16 @@ class Courses extends CI_Controller {
     	
     	if ($course->p_save($this->input->post()))
     	{
-            // if ($course->exists())
-            // {
-            //     echo $course->id;
-            //     die;
-            // }
-    		//redirect(base_url());
-            
+            $base_url = base_url();
             $html = <<<_HTML
             <div id="title_course_{$course->id}" class="course_title_bar">
                 <h4>{$course->title}</h4>
                 <div class="course_actions">
-                    <form class="delete_course" action="{base_url()}courses/delete_course" method="post">
+                    <form class="delete_course" action="{$base_url}courses/delete_course" method="post">
                         <input type="hidden" name="course_id" value="{$course->id}" />
                         <input type="submit" class="btn btn-danger" value="Delete Course" />
                     </form>
-                    <form class="edit_course" action="{base_url()}courses/edit_course" method="post">
+                    <form class="edit_course" action="{$base_url}courses/edit_course" method="post">
                         <input type="hidden" name="course_id" value="{$course->id}" />
                         <input type="submit" class="btn btn-primary" value="Edit Course" />
                     </form>
@@ -78,7 +72,6 @@ _HTML;
         $courses = new Course();
         $data['courses'] = $courses->get();
         $this->load->view('courses_index', $data);
-        $courses->clear();
         */
 
         //With Ajax:
@@ -95,16 +88,17 @@ _HTML;
         
         if ($course->p_update($this->input->post()))
         {
-            //redirect(base_url());   //will change this for AJAX
+            //redirect(base_url());   //without AJAX
+            $base_url = base_url();
             $title = <<<_HTML
             <div id="title_course_{$course->id}" class="course_title_bar">
                 <h4>{$course->title}</h4>
                 <div class="course_actions">
-                    <form class="delete_course" action="{base_url()}courses/delete_course" method="post">
+                    <form class="delete_course" action="{$base_url}courses/delete_course" method="post">
                         <input type="hidden" name="course_id" value="{$course->id}" />
                         <input type="submit" class="btn btn-danger" value="Delete Course" />
                     </form>
-                    <form class="edit_course" action="{base_url()}courses/edit_course" method="post">
+                    <form class="edit_course" action="{$base_url}courses/edit_course" method="post">
                         <input type="hidden" name="course_id" value="{$course->id}" />
                         <input type="submit" class="btn btn-primary" value="Edit Course" />
                     </form>
@@ -112,11 +106,9 @@ _HTML;
                 <div class="clearfix"></div>
             </div>
 _HTML;
-            $description = "<p id='course_id_{$course->id}'>{$course->course_description}</p>";
-
             $data = array();
             $data['html']['title'] = $title;
-            $data['html']['description'] = $description;
+            $data['html']['description'] = $course->course_description;
             $data['action'] = 'update';
             $data['id'] = $course->id;
             echo json_encode($data);
@@ -132,7 +124,7 @@ _HTML;
     {
         $course = new Course($this->input->post('course_id'));
         $course->delete();
-        //redirect(base_url());   //will change this for AJAX
+        //redirect(base_url());   //use this without AJAX
         echo json_encode("");
     }
 }

@@ -35,16 +35,27 @@ $(document).ready(function(){
 	//
 	// This is for deleting a course and removing it from the accordion:
 	//
-	$('.delete_course').submit(function(){
-		var this_form = $(this);
-		var course_id = this_form.children('input[type="hidden"]').val();
+	//$('.delete_course').submit(function(){
+	$(document).on('submit', '.delete_course', function(){
 
+		var this_form = $(this);
+		var title_bar = this_form.parent().parent();
+		var description = this_form.parent().parent().next();
+
+		//using a targeted id:
+		//var course_id = this_form.children('input[type="hidden"]').val();
+		
 		$.post(
 			this_form.attr("action"),
 			this_form.serialize(),
 			function(){	//we're deleting - no data to recieve from action
+				title_bar.remove();
+				description.remove();
+
+			/* Using a targeted id:
 				$('#title_course_' + course_id).remove();
 				$('#course_description_' + course_id).remove();
+				*/
 			},
 			"json"
 		);
@@ -55,7 +66,7 @@ $(document).ready(function(){
 	//
 	// This is for displaying a selected course to edit:
 	//
-	$('.edit_course').submit(function(){
+	$(document).on('submit', '.edit_course', function(){
 		// console.log($(this));
 		var this_form = $(this);
 
@@ -101,6 +112,7 @@ $(document).ready(function(){
 					$("#course_accordion").append(data['html']);
 				}
 				else{ //data['action'] == 'update'
+					//TODO: rewrite this without relying on 'id'. Use .before, after, .children, .parent, etc.
 					$('#title_course_' + data['id']).html(data['html']['title']);
 					$('#course_description_' + data['id']).html(data['html']['description']);
 					//close all tabs
